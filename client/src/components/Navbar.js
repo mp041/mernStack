@@ -1,10 +1,56 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { NavLink } from 'react-router-dom';
 import logo from '../images/logo.png';
+import { UserContext } from "../App";
 
-const Contact = () => {
-    return (
+
+const Navbar = () => {
+  const {state, dispatch } = useContext(UserContext);
+
+  const RenderMenu = () => {
+    if(state) {
+      return (
+        <>
+            <li className="nav-item active">
+        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/about">About</NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/contact">Contact</NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="logout">Logout</NavLink>
+      </li>
+        </>
+      )
+    }else{
+       return(
+         <>
+         <li className="nav-item active">
+        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/about">About</NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/contact">Contact</NavLink>
+      </li>
+        <li className="nav-item">
+        <NavLink className="nav-link" to="/signup">Signup</NavLink>
+      </li><li className="nav-item">
+        <NavLink className="nav-link" to="login">Login</NavLink>
+      </li><li className="nav-item"></li>
+
+         </>
+       )
+    }
+  }
+
+
+  return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
   <NavLink className="navbar-brand" to="/"><img style={{height:80}} src={logo} alt="logo"/></NavLink>
@@ -14,22 +60,8 @@ const Contact = () => {
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav ml-auto">
-      <li className="nav-item active">
-        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/about">About</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/contact">Contact</NavLink>
-      </li><li className="nav-item">
-        <NavLink className="nav-link" to="/signup">Signup</NavLink>
-      </li><li className="nav-item">
-        <NavLink className="nav-link" to="login">Login</NavLink>
-      </li><li className="nav-item">
-        <NavLink className="nav-link" to="logout">Logout</NavLink>
-      </li>
       
+      <RenderMenu />
     </ul>
   </div>
 </nav>
@@ -37,4 +69,4 @@ const Contact = () => {
     )
 }
 
-export default Contact
+export default Navbar

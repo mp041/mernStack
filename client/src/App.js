@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ createContext, useReducer } from 'react'
 import Navbar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Route,Switch } from "react-router-dom";
@@ -10,11 +10,14 @@ import Login from './components/Login';
 import './App.css';
 import ErrorPage from './components/ErrorPage';
 import Logout from './components/Logout';
+import { initialState,reducer } from '../src/reducer/UseReducer';
 
-const App = () => {
+export const UserContext = createContext();
+
+const Routing = () => {
   return (
     <div>
-      <Navbar />
+    
 
       <Switch>
       <Route exact path = "/">
@@ -46,6 +49,20 @@ const App = () => {
       </Route>
       </Switch> 
     </div>
+  )
+}
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+
+  return (
+    <>
+      <UserContext.Provider value = {{state,dispatch}}>
+        <Navbar />
+        <Routing />
+      </UserContext.Provider>
+    </>
   )
 }
 
